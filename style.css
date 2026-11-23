@@ -1,0 +1,1385 @@
+/* =========================================================
+   PIO · Portafolio de Paula Inostroza Olmedo
+   style.css  (index.html + galeria.html)
+   Medidas en rem (1rem = 16px). Layout con flex (grid solo en
+   las cuadrículas de fotos). Sin position: absolute.
+   ========================================================= */
+
+/* ---------- Fuentes ---------- */
+
+/* Atkinson Hyperlegible Bold (reemplaza a Gadugi, solo para "PIO") e Inter */
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@700&family=Inter:opsz,wght@14..32,100..900&display=swap");
+
+/* Alte Haas Grotesk (archivos locales en la carpeta assets) */
+@font-face {
+  font-family: "Alte Haas Grotesk";
+  src: url("assets/AlteHaasGroteskRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alte Haas Grotesk";
+  src: url("assets/AlteHaasGroteskBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Variables (paleta y tipografías del UI Kit) ---------- */
+
+:root {
+  --fondo-1: #F1F0ED;
+  --fondo-2: #F6F6F6;
+  --texto-1: #67645E;
+  --texto-2: #898781;
+  --destacar-1: #D40000;
+  --destacar-2: #9F0000;
+
+  --fuente-pio: "Atkinson Hyperlegible", sans-serif;
+  --fuente-titulos: "Alte Haas Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --fuente-cuerpo: "Inter", sans-serif;
+}
+
+/* ---------- Base ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #FFFFFF;
+  scroll-behavior: smooth;
+}
+
+body {
+  max-width: 94.5rem;
+  margin: 0 auto;
+  background: #FFFFFF;
+  color: var(--texto-1);
+  font-family: var(--fuente-cuerpo);
+  font-size: 1rem;
+  font-optical-sizing: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Texto solo para lectores de pantalla (sin position: absolute) */
+.oculto {
+  width: 0.0625rem;
+  height: 0.0625rem;
+  margin: -0.0625rem;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ENCABEZADO + NAVBAR
+   ========================================================= */
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 73em;
+  max-width: calc(100% - 3rem);
+  margin: 3.8rem 0 0 3rem;
+}
+
+/* PIO (Headline 2) · variantes: predeterminado / hover / active */
+.logo-pio {
+  width: 5.3rem;
+  font-family: var(--fuente-pio);
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 4rem;
+  color: var(--texto-1);
+}
+
+.logo-pio:hover,
+.logo-pio:focus-visible,
+.logo-pio:active {
+  color: #000000;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 55.4rem;
+  max-width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: var(--fondo-1);
+  border-radius: 0.5rem;
+}
+
+/* Cada ítem tiene el ancho del componente para que la variante active no mueva nada */
+.navbar li:nth-child(1) { width: 9.5rem; }
+.navbar li:nth-child(2) { width: 7rem; }
+.navbar li:nth-child(3) { width: 8.75rem; }
+.navbar li:nth-child(4) { width: 8.75rem; }
+
+.navbar a {
+  display: block;
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 2rem;
+  text-align: center;
+  color: var(--texto-1);
+}
+
+.navbar a:hover,
+.navbar a:focus-visible {
+  color: var(--destacar-1);
+}
+
+.navbar a:active {
+  font-size: 1.5rem;
+  color: var(--texto-1);
+}
+
+/* El enlace #inicio llega hasta el borde superior de la página */
+.inicio {
+  scroll-margin-top: 10rem;
+}
+
+/* =========================================================
+   INICIO: PIO + nombres + miniaturas
+   Las miniaturas (li) pasan a ser ítems de .inicio con display: contents
+   y se ordenan en tres filas con "order":
+   fila 1 (01, 02, 03) · fila 2 (PIO + nombres) · fila 3 (04, 05, 06)
+   ========================================================= */
+
+.inicio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-top: 2.25rem;
+}
+
+/* Saltos de fila entre los grupos */
+.inicio::before,
+.inicio::after {
+  content: "";
+  flex: 0 0 100%;
+  height: 0;
+}
+
+.inicio::before { order: 2; }
+.inicio::after { order: 4; }
+
+.miniaturas {
+  display: contents;
+}
+
+/* --- PIO (Headline 1) y nombres (Headline 3) --- */
+
+.titulo-pio {
+  order: 3;
+  width: 21rem;
+  height: 9.3rem;
+  margin: 1rem 0 0 26.6rem;
+  font-family: var(--fuente-pio);
+  font-weight: 700;
+  font-size: 12.5rem;
+  line-height: 9.3rem;
+  text-align: center;
+  color: var(--texto-1);
+}
+
+.nombre-completo {
+  order: 3;
+  width: 18rem;
+  margin-top: 1rem;
+  padding-top: 0.3rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 3.25rem;
+  text-align: center;
+  color: var(--texto-2);
+}
+
+.nombre-completo span {
+  display: block;
+}
+
+/* PIO queda fijo; a los 3 s los nombres se revelan de izquierda a derecha, de arriba hacia abajo */
+.nombre-paula,
+.nombre-inostroza,
+.nombre-olmedo {
+  animation: revelar-nombre 1s ease-out 3s both;
+}
+
+.nombre-inostroza { animation-delay: 3.6s; }
+.nombre-olmedo { animation-delay: 4.2s; }
+
+@keyframes revelar-nombre {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* --- Miniaturas --- */
+
+.miniaturas li {
+  order: 1;
+  animation: flotar 4.5s ease-in-out infinite;
+}
+
+.miniaturas .miniatura-04,
+.miniaturas .miniatura-05,
+.miniaturas .miniatura-06 {
+  order: 5;
+}
+
+/* Posiciones del Figma (margen izquierdo y desplazamiento vertical de cada miniatura)
+   y un ritmo distinto de flotación para que no se muevan todas a la vez */
+.miniaturas .miniatura-01 { margin: 3rem 0 0 6rem; }
+.miniaturas .miniatura-02 { margin: 4rem 0 0 7rem; animation-duration: 5.2s; animation-delay: -1.3s; }
+.miniaturas .miniatura-03 { margin: 0 0 0 7rem; animation-duration: 4.8s; animation-delay: -2.6s; }
+.miniaturas .miniatura-04 { margin: 3.5rem 0 0 13rem; animation-duration: 5s; animation-delay: -0.8s; }
+.miniaturas .miniatura-05 { margin: 5rem 0 0 9.2rem; animation-duration: 4.4s; animation-delay: -3.1s; }
+.miniaturas .miniatura-06 { margin: 2.8rem 0 0 7rem; animation-duration: 5.4s; animation-delay: -2s; }
+
+/* Sube suavemente y vuelve a su lugar (se anima "translate" para no chocar con el "scale" del hover) */
+@keyframes flotar {
+  0%,
+  100% { translate: 0 0; }
+  50% { translate: 0 -0.8rem; }
+}
+
+.miniaturas a {
+  display: flex;
+  transition: scale 0.3s ease;
+}
+
+.miniaturas a:hover,
+.miniaturas a:focus-visible {
+  scale: 1.06;
+}
+
+/* Número (Headline 6 · Regular 80pt): predeterminado / hover / active */
+.miniaturas .numero {
+  position: relative;
+  z-index: 0;
+  flex: none;
+  width: 7.3rem;
+  height: 6rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  font-size: 5rem;
+  line-height: 6rem;
+  text-align: center;
+  color: var(--texto-2);
+  transition: color 0.3s ease;
+}
+
+.miniaturas a:hover .numero,
+.miniaturas a:focus-visible .numero {
+  color: var(--texto-1);
+}
+
+.miniaturas a:active .numero {
+  color: var(--destacar-1);
+}
+
+/* La imagen siempre queda por delante del número */
+.miniaturas img {
+  position: relative;
+  z-index: 1;
+  height: auto;
+}
+
+/* 01: número arriba a la izquierda, imagen debajo */
+.miniatura-01 a { flex-direction: column; align-items: flex-start; }
+.miniatura-01 .numero { margin-bottom: -4rem; }
+.miniatura-01 img { width: 24.3rem; }
+
+/* 02: número a la izquierda, imagen a la derecha */
+.miniatura-02 a { align-items: flex-start; }
+.miniatura-02 .numero { margin-right: -2.8rem; }
+.miniatura-02 img { width: 12.2rem; }
+
+/* 03: número centrado arriba */
+.miniatura-03 a { flex-direction: column; align-items: flex-start; }
+.miniatura-03 .numero { margin-left: 10.5rem; margin-bottom: -4.8rem; z-index: 2; }
+.miniatura-03 img { width: 28.3rem; }
+
+/* 04: número a la izquierda, a media altura */
+.miniatura-04 a { align-items: flex-start; }
+.miniatura-04 .numero { margin-top: 5.7rem; margin-right: -3rem; }
+.miniatura-04 img { width: 11.5rem; }
+
+/* 05: en el Figma el número va sobre la imagen, abajo a la izquierda */
+.miniatura-05 a { flex-direction: column; align-items: flex-start; }
+.miniatura-05 .numero { order: 2; z-index: 2; margin-top: -6rem; margin-left: 1.3rem; }
+.miniatura-05 img { width: 22rem; }
+
+/* 06: número arriba a la derecha */
+.miniatura-06 a { flex-direction: column; align-items: flex-start; }
+.miniatura-06 .numero { margin-left: 3rem; margin-bottom: -3.6rem; }
+.miniatura-06 img { width: 10.4rem; }
+
+/* =========================================================
+   PROYECTOS (tarjetas)
+   Cerradas al inicio: solo se ve el título. Al hacer clic en el número
+   grande se agrega la clase "abierto" (script.js) y se despliega el contenido.
+   ========================================================= */
+
+.proyectos {
+  margin-top: 8.8rem;
+  padding-inline: 3rem;
+}
+
+.proyectos > article + article {
+  margin-top: 6rem;
+}
+
+.proyectos > article {
+  --tono-titulo: var(--texto-1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2.5rem;
+  background: var(--fondo-2);
+  border-radius: 1.3rem;
+}
+
+.proyecto2,
+.proyecto4,
+.proyecto6 {
+  --tono-titulo: var(--texto-2);
+  background: var(--fondo-1);
+}
+
+/* Cerrada: solo el título. Abierta: todo el contenido con animación */
+.proyectos > article:not(.abierto) > :not(.titulo-proyecto) {
+  display: none;
+}
+
+.proyectos > article.abierto > :not(.titulo-proyecto) {
+  animation: desplegar 0.7s ease both;
+}
+
+@keyframes desplegar {
+  from {
+    opacity: 0;
+    translate: 0 -1.5rem;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* --- Títulos proyectos --- */
+
+.titulo-proyecto {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 12rem;
+  padding-inline: 2.5rem;
+}
+
+.titulo-proyecto h3 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--tono-titulo);
+}
+
+/* Número proyecto (Headline 5 · Bold 200pt): predeterminado / hover / active */
+.titulo-proyecto .numero {
+  width: 15.8rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 12.5rem;
+  line-height: 12rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.titulo-proyecto .numero:hover,
+.titulo-proyecto .numero:focus-visible {
+  color: var(--destacar-1);
+}
+
+.proyectos > article.abierto .numero {
+  color: var(--destacar-2);
+}
+
+.nombre-proyecto {
+  display: block;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: normal;
+}
+
+/* Anchos que reproducen los saltos de línea del Figma */
+.proyecto1 .nombre-proyecto { max-width: 12.5rem; }
+.proyecto2 .nombre-proyecto { max-width: 20.6rem; }
+.proyecto3 .nombre-proyecto { max-width: 14rem; }
+.proyecto4 .nombre-proyecto { max-width: 12rem; }
+.proyecto5 .nombre-proyecto { max-width: 10rem; }
+.proyecto6 .nombre-proyecto { max-width: 8.5rem; }
+
+/* Proyecto individual / grupal (Headline 7 · Regular 35pt) */
+.tipo-proyecto {
+  width: 19.4375rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: normal;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--tono-titulo);
+}
+
+/* --- Textos compartidos por todos los proyectos --- */
+
+/* Pie de foto / curso (Headline 8 · Regular 30pt) */
+.proyectos figcaption {
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: normal;
+  color: var(--texto-1);
+}
+
+/* Examen / Encargo: etiqueta (Headline 3) + texto (Body 1) en rojo oscuro */
+.examen1,
+.examen2,
+.examen3,
+.examen4,
+.examen5,
+.examen6 {
+  display: flex;
+  flex-direction: column;
+}
+
+.examen1 h4,
+.examen2 h4,
+.examen3 h4,
+.examen4 h4,
+.examen5 h4,
+.examen6 h4 {
+  display: flex;
+  align-items: center;
+  width: 14rem;
+  height: 3.4rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: normal;
+  color: var(--destacar-2);
+}
+
+.examen1 p,
+.examen2 p,
+.examen3 p,
+.examen4 p,
+.examen5 p,
+.examen6 p {
+  font-family: var(--fuente-cuerpo);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: normal;
+  color: var(--destacar-2);
+}
+
+/* Descripciones (Body 2 · Inter 20pt) */
+.descripcion1,
+.descripcion7,
+.proyectos p[class^="descripcion"] {
+  font-family: var(--fuente-cuerpo);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: normal;
+  color: var(--texto-1);
+}
+
+.descripcion1 p + p,
+.descripcion7 p + p {
+  margin-top: 1.5rem;
+}
+
+.proyectos strong,
+.sobre-mi strong {
+  font-weight: 700;
+}
+
+/* Fotos de las cuadrículas */
+.proyectos [class^="cuadricula"] img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- PROYECTO 01 · DJ Steel Rack ---------- */
+
+.proyecto1 .imagen-principal1 {
+  width: 60.2rem;
+  max-width: 100%;
+  margin-top: 4.5rem;
+}
+
+.proyecto1 .imagen-principal1 img {
+  width: 100%;
+  aspect-ratio: 4096 / 2643;
+  object-fit: cover;
+}
+
+.proyecto1 .imagen-principal1 figcaption {
+  width: 23.6rem;
+  max-width: 100%;
+  margin-top: 2.3rem;
+}
+
+.galeria-descripcion1 {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 4.5rem;
+}
+
+.cuadricula-1 {
+  flex: 0 1 57.8rem;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1.8rem 1.5rem;
+  height: 38rem;
+}
+
+.descripcion1 {
+  flex: 0 1 22.8rem;
+  min-width: 0;
+}
+
+.examen1 {
+  flex: 0 0 100%;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+.examen1 p {
+  width: 35.3rem;
+}
+
+.planos {
+  display: flex;
+  align-items: center;
+  gap: 4.8rem;
+  margin-top: 4.5rem;
+}
+
+.plano-explosionado,
+.plano,
+.plano-cubierta {
+  border: 1px solid #000000;
+}
+
+.plano-explosionado {
+  width: 27.5rem;
+}
+
+.planos-ortogonales {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  width: 31rem;
+}
+
+.planos img {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- PROYECTO 02 · Arv Chair ---------- */
+
+.proyecto2 .titulo-proyecto {
+  min-height: 14.3rem;
+}
+
+.proyecto2 .imagen-principal2 {
+  width: 30rem;
+  align-self: center;
+  margin-top: 6.3rem;
+}
+
+.proyecto2 .imagen-principal2 img {
+  width: 100%;
+  height: 47.6rem;
+  object-fit: cover;
+}
+
+.proyecto2 .imagen-principal2 figcaption {
+  max-width: 20rem;
+  margin-top: 2rem;
+}
+
+.cuadricula-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.4rem;
+  width: 35rem;
+  height: 41.3rem;
+  margin: 6.3rem 0 0 6.1rem;
+}
+
+.examen-imagen {
+  display: flex;
+  align-items: flex-start;
+  gap: 4.5rem;
+  margin-top: 7.5rem;
+}
+
+.examen2 {
+  width: 19.6rem;
+  gap: 2.3rem;
+}
+
+.examen-imagen > img {
+  flex: none;
+  width: 32.6rem;
+  height: 39.5rem;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.proyecto2 .descripcion2 {
+  align-self: center;
+  width: 22.1rem;
+  margin: 7.5rem auto 0 2.1rem;
+}
+
+/* ---------- PROYECTO 03 · Redes de Memoria ---------- */
+
+.proyecto3 .imagen-principal3 {
+  width: 50.5rem;
+  max-width: 100%;
+  margin-top: 5.75rem;
+}
+
+.proyecto3 .imagen-principal3 img {
+  width: 100%;
+  aspect-ratio: 791 / 905;
+  object-fit: cover;
+}
+
+.proyecto3 .imagen-principal3 figcaption {
+  margin-top: 1.6rem;
+}
+
+.cuadricula-3 {
+  flex: 0 1 49.5rem;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2.5rem;
+  height: 55rem;
+  margin-top: 5.75rem;
+}
+
+.examen3 {
+  flex: 1 1 28rem;
+  gap: 1.125rem;
+  margin: 5.75rem 0 0 3.25rem;
+}
+
+.proyecto3 .secundario {
+  display: flex;
+  align-items: center;
+  gap: 3.8rem;
+  margin-top: 5.75rem;
+}
+
+.proyecto3 .descripcion3 {
+  flex: none;
+  width: 26rem;
+}
+
+.fotos3 {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.fotos3 > img {
+  flex: none;
+  width: 30.6rem;
+  height: 40.8rem;
+  object-fit: cover;
+}
+
+.renders {
+  display: flex;
+  flex-direction: column;
+  gap: 6.3rem;
+  width: 16.1rem;
+}
+
+.renders img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.renders img:nth-child(1) { aspect-ratio: 824 / 830; }
+.renders img:nth-child(2) { aspect-ratio: 259 / 291; }
+
+/* ---------- PROYECTO 04 · Stampi Lamp ---------- */
+
+.proyecto4 {
+  justify-content: flex-start;
+  padding-inline: 5rem;
+}
+
+.proyecto4 .titulo-proyecto {
+  padding-inline: 0;
+}
+
+.imagen-principal4 {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 2.3rem;
+  margin-top: 4.75rem;
+}
+
+.imagen-principal4 > img {
+  flex: none;
+  width: 27.1rem;
+  height: 44.8rem;
+  object-fit: cover;
+}
+
+.imagen-secundaria4 {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  width: 39.75rem;
+}
+
+.imagen-secundaria4 img {
+  width: 100%;
+  aspect-ratio: 636 / 463;
+  object-fit: cover;
+}
+
+.imagen-secundaria4 figcaption {
+  width: 34rem;
+  max-width: 100%;
+}
+
+.secundario4 {
+  display: flex;
+  flex-direction: column;
+  gap: 4.3rem;
+  width: 66.25rem;
+  margin: 7.6rem 0 0 4.65rem;
+}
+
+.encargo-foto {
+  display: flex;
+  align-items: flex-start;
+  gap: 12.8rem;
+}
+
+.examen4 {
+  flex: none;
+  width: 20.25rem;
+  gap: 0.8rem;
+}
+
+.encargo-foto > img,
+.secundario4 .foto-descripcion4 > img {
+  flex: none;
+  width: 33.1rem;
+  height: 22rem;
+  object-fit: cover;
+}
+
+.secundario4 .foto-descripcion4 {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.proyecto4 .secundario4 .descripcion4 {
+  width: 21.6rem;
+}
+
+.terciario4 {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  width: 75.5rem;
+  margin-top: 11.1rem;
+}
+
+.stampi-foto {
+  display: flex;
+  align-items: center;
+  gap: 7rem;
+}
+
+.stampi-foto > img {
+  flex: none;
+  width: 35.5rem;
+  height: 46.49rem;
+  object-fit: cover;
+}
+
+.stampi-descripcion {
+  display: flex;
+  flex-direction: column;
+  gap: 4.1rem;
+  width: 27.1rem;
+}
+
+.stampi-descripcion img {
+  width: 14.5rem;
+  height: 6.8rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.terciario4 .foto-descripcion4 {
+  display: flex;
+  align-items: flex-start;
+  gap: 12.75rem;
+}
+
+.terciario4 .foto-descripcion4 > img {
+  flex: none;
+  width: 35.5rem;
+  height: 23.6rem;
+  object-fit: cover;
+}
+
+.terciario4 .descripcion4 {
+  flex: none;
+  width: 27.3rem;
+}
+
+/* ---------- PROYECTO 05 · Modu Brick ---------- */
+
+.principal5 {
+  display: flex;
+  align-items: center;
+  gap: 3.8rem;
+  margin-top: 6.3rem;
+}
+
+/* En el Figma el texto del curso va arriba de la foto */
+.foto-curso5 {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 3.6rem;
+  width: 28.5rem;
+}
+
+.foto-curso5 figcaption {
+  max-width: 24.75rem;
+}
+
+.foto-curso5 img {
+  width: 27.75rem;
+  height: 32rem;
+  object-fit: cover;
+}
+
+.principal5 > img {
+  flex: none;
+  width: 35.4rem;
+  height: 41.5rem;
+  object-fit: cover;
+}
+
+.secundario5 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.75rem;
+  width: 73.6rem;
+  margin-top: 6.3rem;
+}
+
+.examen5 {
+  width: 20.25rem;
+  gap: 0.8rem;
+}
+
+.fotos-descripcion5 {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.75rem;
+}
+
+.secundario5 .foto-descripcion5 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 35.4rem;
+}
+
+.secundario5 .foto-descripcion5:last-child {
+  gap: 2.25rem;
+  width: 35.4rem;
+}
+
+.secundario5 .foto-descripcion5 img {
+  width: 100%;
+  aspect-ratio: 4096 / 2731;
+  object-fit: cover;
+}
+
+.secundario5 .foto-descripcion5 p {
+  width: 21.75rem;
+}
+
+.terciario5 {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  gap: 3.6rem;
+  margin-top: 6.3rem;
+}
+
+.fotos5 {
+  flex: 0 0 27.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.fotos5 img {
+  width: 100%;
+  aspect-ratio: 4096 / 2731;
+  object-fit: cover;
+}
+
+.terciario5 .foto-descripcion5 {
+  display: flex;
+  align-items: center;
+  gap: 3.6rem;
+}
+
+.terciario5 .foto-descripcion5 > img {
+  flex: none;
+  width: 27.7rem;
+  height: 41.5rem;
+  object-fit: cover;
+}
+
+.terciario5 .foto-descripcion5 p {
+  width: 20.6rem;
+  font-size: 1.1rem;
+}
+
+/* ---------- PROYECTO 06 · Duo Cork ---------- */
+
+.fotos-principales6 {
+  flex: 0 0 100%;
+  display: flex;
+  gap: 2.25rem 1.5rem;
+  margin-top: 5.25rem;
+}
+
+.fotos-principales6 img {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 40.25rem;
+  object-fit: cover;
+}
+
+/* El pie de foto baja a su propia fila */
+.fotos-principales6 {
+  flex-wrap: wrap;
+}
+
+.fotos-principales6::after {
+  content: "";
+  order: 1;
+  flex: 0 0 100%;
+  height: 0;
+}
+
+.fotos-principales6 figcaption {
+  order: 2;
+  max-width: 24.75rem;
+  margin-top: -2rem;
+}
+
+.secundario6 {
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6.5rem;
+  margin-top: 4.1rem;
+}
+
+.encargo-foto6 {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.1rem;
+}
+
+.encargo-foto6 > img {
+  flex: none;
+  width: 36rem;
+  height: 24rem;
+  object-fit: cover;
+}
+
+.examen6 {
+  flex: none;
+  width: 20.25rem;
+  gap: 0.8rem;
+}
+
+.descripciones6 {
+  display: flex;
+  align-items: center;
+  gap: 10.4rem;
+  width: 100%;
+}
+
+.descripciones6 .descripcion6:nth-child(1) { width: 37.1rem; }
+.descripciones6 .descripcion6:nth-child(2) { width: 35.6rem; }
+
+.terciario6 {
+  display: flex;
+  align-items: flex-start;
+  gap: 6.6rem;
+  margin: 4.1rem auto 0 0;
+}
+
+.terciario6 > img {
+  flex: none;
+  width: 40.8rem;
+  height: 44.1rem;
+  object-fit: cover;
+}
+
+.fotos6 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  width: 32.2rem;
+}
+
+.fotos6 img {
+  width: 100%;
+  aspect-ratio: 4096 / 2731;
+  object-fit: cover;
+}
+
+/* =========================================================
+   SOBRE MÍ
+   ========================================================= */
+
+.sobre-mi {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  width: 67.3rem;
+  max-width: 100%;
+  margin: 15.8rem auto 0;
+}
+
+.saludo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 59.1rem;
+  max-width: 100%;
+}
+
+.saludo h2 {
+  width: 13.625rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: normal;
+  color: var(--texto-1);
+}
+
+.saludo img {
+  width: 27.75rem;
+  height: 7.625rem;
+  object-fit: cover;
+}
+
+.foto-descripcion7 {
+  display: flex;
+  align-items: center;
+  gap: 2.75rem;
+}
+
+.foto-descripcion7 > img {
+  flex: none;
+  width: 28.6rem;
+  height: 31.125rem;
+  object-fit: cover;
+  object-position: 50% 27%;
+}
+
+.descripcion7 {
+  width: 36rem;
+  font-size: 1.5rem;
+}
+
+.programas {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2.3rem;
+}
+
+.programas h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 1.875rem;
+  line-height: normal;
+  color: var(--destacar-2);
+}
+
+.programas-grupos {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.4rem;
+}
+
+.grupo-programas {
+  width: 18.4rem;
+  font-family: var(--fuente-cuerpo);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: normal;
+  color: var(--texto-1);
+}
+
+.grupo-programas h4 {
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* =========================================================
+   CONTACTO
+   ========================================================= */
+
+.contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.4rem;
+  width: 58rem;
+  max-width: 100%;
+  margin: 10.8rem auto 3.8rem;
+}
+
+.contacto h2 {
+  width: 100%;
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  font-size: 9.3rem;
+  line-height: 11.3rem;
+  text-align: center;
+  color: var(--destacar-1);
+}
+
+/* Cada carácter se crea en script.js; rebota al pasar el cursor */
+.letra {
+  display: inline-block;
+  transform-origin: 50% 100%;
+}
+
+.letra.rebotando {
+  animation: rebote 0.9s ease-out;
+}
+
+@keyframes rebote {
+  0% { scale: 1; }
+  30% { scale: 0.5; }
+  55% { scale: 1.12; }
+  75% { scale: 0.96; }
+  100% { scale: 1; }
+}
+
+.datos-contacto {
+  width: 28.3rem;
+  max-width: 100%;
+  font-family: var(--fuente-titulos);
+  font-size: 1.875rem;
+  line-height: normal;
+  color: var(--texto-1);
+}
+
+.datos-contacto li + li {
+  margin-top: 2.25rem;
+}
+
+.datos-contacto strong {
+  display: block;
+  font-weight: 700;
+}
+
+.datos-contacto a:hover,
+.datos-contacto a:focus-visible {
+  color: var(--destacar-1);
+}
+
+/* =========================================================
+   GALERÍA (galeria.html)
+   El logo PIO queda fijo sobre las fotos, como en el Figma.
+   script.js duplica las fotos de cada columna para el loop infinito.
+   ========================================================= */
+
+body:has(.galeria) .encabezado {
+  position: fixed;
+  top: 3.5rem;
+  left: 3.125rem;
+  z-index: 10;
+  width: auto;
+  margin: 0;
+}
+
+.galeria-columnas {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.galeria-columnas.en-bucle {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.columna-1,
+.columna-2,
+.columna-3,
+.columna-4 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.columna-1,
+.columna-4 { flex: 1 1 24.625rem; }
+.columna-2 { flex: 1 1 21.5rem; }
+.columna-3 { flex: 1 1 21.4375rem; }
+
+.galeria-columnas img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/* Proporción de cada foto según el Figma */
+.columna-1 img:nth-child(1),
+.columna-1 img:nth-child(2),
+.columna-1 img:nth-child(4),
+.columna-1 img:nth-child(5) { aspect-ratio: 3 / 2; }
+.columna-1 img:nth-child(3) { aspect-ratio: 392 / 440; }
+.columna-1 img:nth-child(6) { aspect-ratio: 392 / 422; }
+
+.columna-2 img:nth-child(1),
+.columna-2 img:nth-child(3),
+.columna-2 img:nth-child(5) { aspect-ratio: 3 / 2; }
+.columna-2 img:nth-child(2),
+.columna-2 img:nth-child(4) { aspect-ratio: 2 / 3; }
+.columna-2 img:nth-child(6) { aspect-ratio: 342 / 193; }
+
+.columna-3 img:nth-child(1) { aspect-ratio: 342 / 436; }
+.columna-3 img:nth-child(2),
+.columna-3 img:nth-child(4) { aspect-ratio: 3 / 2; }
+.columna-3 img:nth-child(3),
+.columna-3 img:nth-child(5) { aspect-ratio: 2 / 3; }
+
+.columna-4 img:nth-child(1),
+.columna-4 img:nth-child(3),
+.columna-4 img:nth-child(5) { aspect-ratio: 3 / 2; }
+.columna-4 img:nth-child(2),
+.columna-4 img:nth-child(4) { aspect-ratio: 392 / 440; }
+.columna-4 img:nth-child(6) { aspect-ratio: 392 / 241; }
+
+/* Loop infinito hacia arriba: lento y continuo */
+.en-bucle .columna-1,
+.en-bucle .columna-2,
+.en-bucle .columna-3,
+.en-bucle .columna-4 {
+  animation: subir 70s linear infinite;
+}
+
+/* Se recorre el alto de una copia de las fotos (50 % del total + medio espacio entre copias) */
+@keyframes subir {
+  to { translate: 0 calc(-50% - 0.46875rem); }
+}
+
+/* =========================================================
+   Accesibilidad: sin movimiento si la persona lo prefiere
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .nombre-paula,
+  .nombre-inostroza,
+  .nombre-olmedo,
+  .miniaturas li,
+  .en-bucle .columna-1,
+  .en-bucle .columna-2,
+  .en-bucle .columna-3,
+  .en-bucle .columna-4,
+  .proyectos > article.abierto > :not(.titulo-proyecto),
+  .letra.rebotando {
+    animation: none;
+  }
+
+  .miniaturas a {
+    transition: none;
+  }
+}
